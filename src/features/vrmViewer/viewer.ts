@@ -71,14 +71,16 @@ export class Viewer {
       // ========== ここから追加/変更 ==========
       // VRMモデル全体を右に移動（X軸の正の方向）
       // 値を調整して好みの位置にしてください（例: 0.3 = 30cm右へ）
-      const horizontalOffset = -0.2; // この値を変更して位置を調整
-      
+      const horizontalOffset = -0.2 // この値を変更して位置を調整
+
       // モデル全体の位置を設定
-      this.model.vrm.scene.position.x = horizontalOffset;
+      this.model.vrm.scene.position.x = horizontalOffset
       // ========== ここまで追加/変更 ==========
 
       // Load walk animation for initial display
-      const walkVrma = await loadVRMAnimation(buildUrl('/vrma/vbox-appearing-7KKFBBJ2.vrma'))
+      const walkVrma = await loadVRMAnimation(
+        buildUrl('/vrma/vbox-appearing-7KKFBBJ2.vrma')
+      )
       if (walkVrma && this.model.mixer) {
         const walkClip = walkVrma.createAnimationClip(this.model.vrm)
         this._walkAnimationAction = this.model.mixer.clipAction(walkClip)
@@ -88,12 +90,14 @@ export class Viewer {
       }
 
       // Load default animation
-      const defaultVrma = await loadVRMAnimation(buildUrl('/vrma/vbox-waiting-I3CZ3FBD.vrma'))
+      const defaultVrma = await loadVRMAnimation(
+        buildUrl('/vrma/vbox-waiting-I3CZ3FBD.vrma')
+      )
       if (defaultVrma && this.model.mixer) {
         const defaultClip = defaultVrma.createAnimationClip(this.model.vrm)
         this._defaultAnimationAction = this.model.mixer.clipAction(defaultClip)
         this._defaultAnimationAction.setLoop(THREE.LoopRepeat, Infinity)
-        
+
         // Wait for walk animation to finish, then switch to default
         if (this._walkAnimationAction) {
           this.model.mixer.addEventListener('finished', (e) => {
@@ -118,13 +122,17 @@ export class Viewer {
    * Switch from walk animation to default animation
    */
   private switchToDefaultAnimation() {
-    if (this._walkAnimationAction && this._defaultAnimationAction && this.model?.mixer) {
+    if (
+      this._walkAnimationAction &&
+      this._defaultAnimationAction &&
+      this.model?.mixer
+    ) {
       // Fade out walk animation and fade in default animation
       this._walkAnimationAction.fadeOut(0.5)
       this._defaultAnimationAction.reset()
       this._defaultAnimationAction.fadeIn(0.5)
       this._defaultAnimationAction.play()
-      
+
       // Clean up walk animation after fade out
       setTimeout(() => {
         if (this._walkAnimationAction) {
@@ -155,7 +163,7 @@ export class Viewer {
         this._defaultAnimationAction.stop()
         this._defaultAnimationAction = undefined
       }
-      
+
       this._scene.remove(this.model.vrm.scene)
       this.model?.unLoadVrm()
     }
@@ -242,11 +250,11 @@ export class Viewer {
 
     if (headNode) {
       const headWPos = headNode.getWorldPosition(new THREE.Vector3())
-      
+
       // ========== ここから追加/変更 ==========
       // モデルの位置オフセットを考慮してカメラターゲットを調整
-      const modelOffset = this.model?.vrm?.scene.position.x || 0;
-      
+      const modelOffset = this.model?.vrm?.scene.position.x || 0
+
       this._camera?.position.set(
         this._camera.position.x,
         headWPos.y,
@@ -254,11 +262,11 @@ export class Viewer {
       )
       this._cameraControls?.target.set(
         headWPos.x + modelOffset, // X位置にオフセットを追加
-        headWPos.y, 
+        headWPos.y,
         headWPos.z
       )
       // ========== ここまで追加/変更 ==========
-      
+
       this._cameraControls?.update()
     }
   }

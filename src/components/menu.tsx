@@ -63,9 +63,7 @@ export const Menu = () => {
     CHAT_LOG: 2, // 会話ログ
   } as const
 
-  const [chatLogMode, setChatLogMode] = useState<number>(
-    CHAT_LOG_MODE.CHAT_LOG
-  )
+  const [chatLogMode, setChatLogMode] = useState<number>(CHAT_LOG_MODE.CHAT_LOG)
   const [showPermissionModal, setShowPermissionModal] = useState(false)
   const imageFileInputRef = useRef<HTMLInputElement>(null)
 
