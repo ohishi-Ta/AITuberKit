@@ -421,7 +421,7 @@ export const MessageInput = ({
           )}
 
           <div className="flex gap-2 items-end">
-            <div className="flex-shrink-0 pb-[0.3rem]">
+            {/* <div className="flex-shrink-0 pb-[0.3rem]">
               <IconButton
                 iconName="24/Microphone"
                 backgroundColor={
@@ -434,7 +434,7 @@ export const MessageInput = ({
                 disabled={chatProcessing || isSpeaking}
                 onClick={handleMicClick}
               />
-            </div>
+            </div> */}
             <div className="flex-1 relative">
               {/* 画像添付インジケーター - アイコンのみ表示設定の場合 */}
               {showIconDisplay && (

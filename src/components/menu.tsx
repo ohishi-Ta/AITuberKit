@@ -241,7 +241,7 @@ export const Menu = () => {
                   onClick={() => setChatLogMode((prev) => (prev + 1) % 3)}
                 />
               </div>
-              {!youtubeMode && (
+              {/* {!youtubeMode && (
                 <>
                   <div className="order-3">
                     <IconButton
@@ -315,7 +315,7 @@ export const Menu = () => {
                     disabled={slidePlaying}
                   />
                 </div>
-              )}
+              )} */}
             </>
           )}
         </div>

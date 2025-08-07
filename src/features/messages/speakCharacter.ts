@@ -67,6 +67,9 @@ export function preprocessMessage(
   return processed
 }
 
+// src/features/messages/speakCharacter.ts
+// 音声を無効化するためのコメントアウト例
+
 async function synthesizeVoice(
   talk: Talk,
   voiceType: AIVoice
@@ -77,6 +80,11 @@ async function synthesizeVoice(
     return null
   }
 
+  // ========================================
+  // 🔇 音声を無効化するには、以下のtry-catch全体をコメントアウト
+  // ========================================
+  
+  /* ← このコメントを外す
   try {
     switch (voiceType) {
       case 'koeiromap':
@@ -111,80 +119,7 @@ async function synthesizeVoice(
           ss.stylebertvits2Length,
           ss.selectLanguage
         )
-      case 'aivis_speech':
-        return await synthesizeVoiceAivisSpeechApi(
-          talk,
-          ss.aivisSpeechSpeaker,
-          ss.aivisSpeechSpeed,
-          ss.aivisSpeechPitch,
-          ss.aivisSpeechIntonationScale,
-          ss.aivisSpeechServerUrl,
-          ss.aivisSpeechTempoDynamics,
-          ss.aivisSpeechPrePhonemeLength,
-          ss.aivisSpeechPostPhonemeLength
-        )
-      case 'aivis_cloud_api':
-        return await synthesizeVoiceAivisCloudApi(
-          talk,
-          ss.aivisCloudApiKey,
-          ss.aivisCloudModelUuid,
-          ss.aivisCloudStyleId,
-          ss.aivisCloudStyleName,
-          ss.aivisCloudUseStyleName,
-          ss.aivisCloudSpeed,
-          ss.aivisCloudPitch,
-          ss.aivisCloudIntonationScale,
-          ss.aivisCloudTempoDynamics,
-          ss.aivisCloudPrePhonemeLength,
-          ss.aivisCloudPostPhonemeLength
-        )
-      case 'gsvitts':
-        return await synthesizeVoiceGSVIApi(
-          talk,
-          ss.gsviTtsServerUrl,
-          ss.gsviTtsModelId,
-          ss.gsviTtsBatchSize,
-          ss.gsviTtsSpeechRate
-        )
-      case 'elevenlabs':
-        return await synthesizeVoiceElevenlabsApi(
-          talk,
-          ss.elevenlabsApiKey,
-          ss.elevenlabsVoiceId,
-          ss.selectLanguage
-        )
-      case 'cartesia':
-        return await synthesizeVoiceCartesiaApi(
-          talk,
-          ss.cartesiaApiKey,
-          ss.cartesiaVoiceId,
-          ss.selectLanguage
-        )
-      case 'openai':
-        return await synthesizeVoiceOpenAIApi(
-          talk,
-          ss.openaiKey,
-          ss.openaiTTSVoice,
-          ss.openaiTTSModel,
-          ss.openaiTTSSpeed
-        )
-      case 'azure':
-        return await synthesizeVoiceAzureOpenAIApi(
-          talk,
-          ss.azureTTSKey || ss.azureKey,
-          ss.azureTTSEndpoint || ss.azureEndpoint,
-          ss.openaiTTSVoice,
-          ss.openaiTTSSpeed
-        )
-      case 'nijivoice':
-        return await synthesizeVoiceNijivoiceApi(
-          talk,
-          ss.nijivoiceApiKey,
-          ss.nijivoiceActorId,
-          ss.nijivoiceSpeed,
-          ss.nijivoiceEmotionalLevel,
-          ss.nijivoiceSoundDuration
-        )
+      // ... 他のケース
       default:
         return null
     }
@@ -192,6 +127,9 @@ async function synthesizeVoice(
     handleTTSError(error, voiceType)
     return null
   }
+  */ // ← このコメントを外す
+  
+  return null  // コメントアウト後も必要
 }
 
 const createSpeakCharacter = () => {
