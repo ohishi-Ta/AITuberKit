@@ -13,7 +13,7 @@ export const Introduction = () => {
   const selectLanguage = settingsStore((s) => s.selectLanguage)
 
   const [displayIntroduction, setDisplayIntroduction] = useState(false)
-  const [opened, setOpened] = useState(true)
+  const [opened, setOpened] = useState(false)
   const [dontShowAgain, setDontShowAgain] = useState(false)
 
   const { t } = useTranslation()
