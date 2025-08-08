@@ -9,6 +9,7 @@ const nextConfig = {
   },
   optimizeFonts: false,
   async headers() {
+     const allowedOrigin = process.env.ALLOWED_ORIGIN || 'http://localhost:3000';
     return [
       {
         source: '/(.*)',
