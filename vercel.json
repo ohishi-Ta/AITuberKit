@@ -1,0 +1,13 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "frame-ancestors https://ai-tuber-jwt9hxyzj-ohishitas-projects.vercel.app/;"
+        }
+      ]
+    }
+  ]
+}
