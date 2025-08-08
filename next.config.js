@@ -13,7 +13,6 @@ const nextConfig = {
       {
         source: '/(.*)',
         headers: [
-          { key: 'X-Frame-Options', value: '' },
           { key: 'Content-Security-Policy', value: 'frame-ancestors http://localhost:3000;' }
         ]
       }
