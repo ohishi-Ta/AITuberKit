@@ -4,8 +4,12 @@
       "source": "/(.*)",
       "headers": [
         {
-          "key": "Content-Security-Policy",
+          "key": "X-Frame-Options",
           "value": ""
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "frame-ancestors http://localhost:3000;"
         }
       ]
     }
