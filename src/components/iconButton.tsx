@@ -40,7 +40,9 @@ export const IconButton = ({
           width={24}
           height={24}
         />
-      ) : iconName === 'stop' ? (
+      ) : iconName === '24/Send' ? (
+        <Image src="/images/icons/send.svg" alt="send" width={24} height={24} />
+      )  : iconName === 'stop' ? (
         <Image src="/images/icons/stop.svg" alt="stop" width={24} height={24} />
       ) : (
         <pixiv-icon name={String(iconName)} scale="1"></pixiv-icon>

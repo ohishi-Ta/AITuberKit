@@ -34,13 +34,13 @@ export class VRMAnimation {
       tracks.push(...this.createExpressionTracks(vrm.expressionManager))
     }
 
-    if (vrm.lookAt != null) {
-      const track = this.createLookAtTrack('lookAtTargetParent.quaternion')
+    // if (vrm.lookAt != null) {
+    //   const track = this.createLookAtTrack('lookAtTargetParent.quaternion')
 
-      if (track != null) {
-        tracks.push(track)
-      }
-    }
+    //   if (track != null) {
+    //     tracks.push(track)
+    //   }
+    // }
 
     return new THREE.AnimationClip('Clip', this.duration, tracks)
   }

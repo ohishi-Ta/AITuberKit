@@ -37,21 +37,21 @@ export interface TransientState {
 export type HomeState = PersistedState & TransientState
 
 // 更新の一時的なバッファリングを行うための変数
-let saveDebounceTimer: ReturnType<typeof setTimeout> | null = null
-const SAVE_DEBOUNCE_DELAY = 2000 // 2秒
-let lastSavedLogLength = 0 // 最後に保存したログの長さを記録
-// 履歴削除後に次回保存で新規ファイルを作成するかどうかを示すフラグ
-let shouldCreateNewFile = false
+// let saveDebounceTimer: ReturnType<typeof setTimeout> | null = null
+// const SAVE_DEBOUNCE_DELAY = 2000 // 2秒
+// let lastSavedLogLength = 0 // 最後に保存したログの長さを記録
+// // 履歴削除後に次回保存で新規ファイルを作成するかどうかを示すフラグ
+// let shouldCreateNewFile = false
 
 // ログ保存状態をリセットする共通関数
-const resetSaveState = () => {
-  console.log('Chat log was cleared, resetting save state.')
-  lastSavedLogLength = 0
-  shouldCreateNewFile = true
-  if (saveDebounceTimer) {
-    clearTimeout(saveDebounceTimer)
-  }
-}
+// const resetSaveState = () => {
+//   console.log('Chat log was cleared, resetting save state.')
+//   lastSavedLogLength = 0
+//   shouldCreateNewFile = true
+//   if (saveDebounceTimer) {
+//     clearTimeout(saveDebounceTimer)
+//   }
+// }
 
 const homeStore = create<HomeState>()(
   persist(
@@ -140,78 +140,78 @@ const homeStore = create<HomeState>()(
         showIntroduction,
       }),
       onRehydrateStorage: () => (state) => {
-        if (state) {
-          lastSavedLogLength = state.chatLog.length
-          console.log('Rehydrated chat log length:', lastSavedLogLength)
-        }
+        // if (state) {
+        //   lastSavedLogLength = state.chatLog.length
+        //   console.log('Rehydrated chat log length:', lastSavedLogLength)
+        // }
       },
     }
   )
 )
 
 // chatLogの変更を監視して差分を保存
-homeStore.subscribe((state, prevState) => {
-  if (state.chatLog !== prevState.chatLog && state.chatLog.length > 0) {
-    if (lastSavedLogLength > state.chatLog.length) {
-      resetSaveState()
-    }
+// homeStore.subscribe((state, prevState) => {
+//   if (state.chatLog !== prevState.chatLog && state.chatLog.length > 0) {
+//     if (lastSavedLogLength > state.chatLog.length) {
+//       resetSaveState()
+//     }
 
-    if (saveDebounceTimer) {
-      clearTimeout(saveDebounceTimer)
-    }
+//     if (saveDebounceTimer) {
+//       clearTimeout(saveDebounceTimer)
+//     }
 
-    saveDebounceTimer = setTimeout(() => {
-      // 新規追加 or 更新があったメッセージだけを抽出
-      const newMessagesToSave = state.chatLog.filter(
-        (msg, idx) =>
-          idx >= lastSavedLogLength || // 追加分
-          prevState.chatLog.find((p) => p.id === msg.id)?.content !==
-            msg.content // 更新分
-      )
+//     saveDebounceTimer = setTimeout(() => {
+//       // 新規追加 or 更新があったメッセージだけを抽出
+//       const newMessagesToSave = state.chatLog.filter(
+//         (msg, idx) =>
+//           idx >= lastSavedLogLength || // 追加分
+//           prevState.chatLog.find((p) => p.id === msg.id)?.content !==
+//             msg.content // 更新分
+//       )
 
-      if (newMessagesToSave.length > 0) {
-        const processedMessages = newMessagesToSave.map((msg) =>
-          messageSelectors.sanitizeMessageForStorage(msg)
-        )
+//       if (newMessagesToSave.length > 0) {
+//         const processedMessages = newMessagesToSave.map((msg) =>
+//           messageSelectors.sanitizeMessageForStorage(msg)
+//         )
 
-        console.log(`Saving ${processedMessages.length} new messages...`)
+//         console.log(`Saving ${processedMessages.length} new messages...`)
 
-        void fetch('/api/save-chat-log', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            messages: processedMessages,
-            isNewFile: shouldCreateNewFile,
-          }),
-        })
-          .then((response) => {
-            if (response.ok) {
-              lastSavedLogLength = state.chatLog.length
-              // 新規ファイルが作成された場合はフラグをリセット
-              shouldCreateNewFile = false
-              console.log(
-                'Messages saved successfully. New saved length:',
-                lastSavedLogLength
-              )
-            } else {
-              console.error('Failed to save chat log:', response.statusText)
-            }
-          })
-          .catch((error) => {
-            console.error('チャットログの保存中にエラーが発生しました:', error)
-          })
-      } else {
-        console.log('No new messages to save.')
-      }
-    }, SAVE_DEBOUNCE_DELAY)
-  } else if (
-    state.chatLog !== prevState.chatLog &&
-    state.chatLog.length === 0
-  ) {
-    resetSaveState()
-  }
-})
+//         void fetch('/api/save-chat-log', {
+//           method: 'POST',
+//           headers: {
+//             'Content-Type': 'application/json',
+//           },
+//           body: JSON.stringify({
+//             messages: processedMessages,
+//             isNewFile: shouldCreateNewFile,
+//           }),
+//         })
+//           .then((response) => {
+//             if (response.ok) {
+//               lastSavedLogLength = state.chatLog.length
+//               // 新規ファイルが作成された場合はフラグをリセット
+//               shouldCreateNewFile = false
+//               console.log(
+//                 'Messages saved successfully. New saved length:',
+//                 lastSavedLogLength
+//               )
+//             } else {
+//               console.error('Failed to save chat log:', response.statusText)
+//             }
+//           })
+//           .catch((error) => {
+//             console.error('チャットログの保存中にエラーが発生しました:', error)
+//           })
+//       } else {
+//         console.log('No new messages to save.')
+//       }
+//     }, SAVE_DEBOUNCE_DELAY)
+//   } else if (
+//     state.chatLog !== prevState.chatLog &&
+//     state.chatLog.length === 0
+//   ) {
+//     resetSaveState()
+//   }
+// })
 
 export default homeStore
