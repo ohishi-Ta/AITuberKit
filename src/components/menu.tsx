@@ -77,7 +77,7 @@ export const Menu = () => {
   const selectedSlideDocs = slideStore((state) => state.selectedSlideDocs)
   const { t } = useTranslation()
 
-    // 会話履歴リセット関数を追加
+  // 会話履歴リセット関数を追加
   const handleResetChatLog = useCallback(() => {
     homeStore.setState({ chatLog: [] })
     settingsStore.setState({ difyConversationId: '' })
