@@ -77,6 +77,12 @@ export const Menu = () => {
   const selectedSlideDocs = slideStore((state) => state.selectedSlideDocs)
   const { t } = useTranslation()
 
+    // 会話履歴リセット関数を追加
+  const handleResetChatLog = useCallback(() => {
+    homeStore.setState({ chatLog: [] })
+    settingsStore.setState({ difyConversationId: '' })
+  }, [])
+
   const [markdownContent, setMarkdownContent] = useState('')
 
   // ロングタップ処理用の関数
@@ -218,7 +224,16 @@ export const Menu = () => {
         >
           {showControlPanel && (
             <>
-              <div className="md:order-1 order-2">
+              {/* 会話リセットボタンを最初に追加 */}
+              <div className="md:order-0 order-0">
+                <IconButton
+                  iconName="24/Trash"
+                  label={t('ConversationHistoryReset')}
+                  isProcessing={false}
+                  onClick={handleResetChatLog}
+                />
+              </div>
+              {/* <div className="md:order-1 order-2">
                 <IconButton
                   iconName="24/Settings"
                   isProcessing={false}
@@ -238,7 +253,7 @@ export const Menu = () => {
                   isProcessing={false}
                   onClick={() => setChatLogMode((prev) => (prev + 1) % 3)}
                 />
-              </div>
+              </div> */}
               {/* {!youtubeMode && (
                 <>
                   <div className="order-3">
