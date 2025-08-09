@@ -486,7 +486,7 @@ export const MessageInput = ({
                     : continuousMicListeningMode && isMicRecording
                       ? t('ListeningContinuously')
                       : isMultiModalSupported
-                        ? `${t('EnterYourQuestion')} (${t('PasteImageSupported') || 'Paste image supported'})`
+                        ? `${t('EnterYourQuestion')}`
                         : t('EnterYourQuestion')
                 }
                 onChange={handleTextChange}
