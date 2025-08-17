@@ -71,23 +71,11 @@ export class Viewer {
       // ========== ここから追加/変更 ==========
       // VRMモデル全体を右に移動（X軸の正の方向）
       // 値を調整して好みの位置にしてください（例: 0.3 = 30cm右へ）
-      const horizontalOffset = -0.2 // この値を変更して位置を調整
+      const horizontalOffset = -0.3 // この値を変更して位置を調整
 
       // モデル全体の位置を設定
       this.model.vrm.scene.position.x = horizontalOffset
       // ========== ここまで追加/変更 ==========
-
-      // Load walk animation for initial display
-      const walkVrma = await loadVRMAnimation(
-        buildUrl('/vrma/vbox-appearing-7KKFBBJ2.vrma')
-      )
-      if (walkVrma && this.model.mixer) {
-        const walkClip = walkVrma.createAnimationClip(this.model.vrm)
-        this._walkAnimationAction = this.model.mixer.clipAction(walkClip)
-        this._walkAnimationAction.setLoop(THREE.LoopOnce, 1)
-        this._walkAnimationAction.clampWhenFinished = true
-        this._walkAnimationAction.play()
-      }
 
       // Load default animation
       const defaultVrma = await loadVRMAnimation(
