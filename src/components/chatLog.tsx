@@ -149,7 +149,7 @@ const Chat = ({
             {role !== 'user' ? characterName || 'CHARACTER' : 'YOU'}
           </div>
           <div className="px-6 py-4 bg-white rounded-b-lg">
-            <div className={`font-bold ${roleText}`}>{processedMessage}</div>
+            <div className={`font-bold wrap-break-word ${roleText}`}>{processedMessage}</div>
           </div>
         </>
       )}
