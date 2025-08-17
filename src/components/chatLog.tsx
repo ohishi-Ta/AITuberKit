@@ -149,7 +149,10 @@ const Chat = ({
             {role !== 'user' ? characterName || 'CHARACTER' : 'YOU'}
           </div>
           <div className="px-6 py-4 bg-white rounded-b-lg">
-            <div className={`font-bold wrap-break-word ${roleText}`}>
+            <div
+              className={`font-bold ${roleText}`}
+              style={{ overflowWrap: 'break-word' }}
+            >
               {processedMessage}
             </div>
           </div>
