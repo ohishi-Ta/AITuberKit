@@ -177,16 +177,25 @@ const Chat = ({
                     <ol className="list-decimal ml-6 mb-2">{children}</ol>
                   ),
                   li: ({ children }) => <li className="mb-1">{children}</li>,
-                  code: ({ inline, children }) => {
-                    if (inline) {
+                  code: ({ node, className, children, ...props }: any) => {
+                    const match = /language-(\w+)/.exec(className || '')
+                    const isInline = !match && !className
+
+                    if (isInline) {
                       return (
-                        <code className="bg-gray-100 px-1 py-0.5 rounded text-sm">
+                        <code
+                          className="bg-gray-100 px-1 py-0.5 rounded text-sm"
+                          {...props}
+                        >
                           {children}
                         </code>
                       )
                     }
                     return (
-                      <code className="block bg-gray-100 p-2 rounded my-2 overflow-x-auto text-sm">
+                      <code
+                        className={`block bg-gray-100 p-2 rounded my-2 overflow-x-auto text-sm ${className || ''}`}
+                        {...props}
+                      >
                         {children}
                       </code>
                     )
