@@ -6,6 +6,9 @@ import homeStore from '@/features/stores/home'
 import settingsStore from '@/features/stores/settings'
 import { messageSelectors } from '@/features/messages/messageSelectors'
 
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+
 export const ChatLog = () => {
   const chatScrollRef = useRef<HTMLDivElement>(null)
   const resizeHandleRef = useRef<HTMLDivElement>(null)
@@ -150,10 +153,92 @@ const Chat = ({
           </div>
           <div className="px-6 py-4 bg-white rounded-b-lg">
             <div
-              className={`font-bold ${roleText}`}
+              className={`font-bold ${roleText} markdown-content`}
               style={{ overflowWrap: 'break-word' }}
             >
-              {processedMessage}
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  // カスタムコンポーネントの定義
+                  h1: ({ children }) => (
+                    <h1 className="text-2xl font-bold mt-4 mb-2">{children}</h1>
+                  ),
+                  h2: ({ children }) => (
+                    <h2 className="text-xl font-bold mt-3 mb-2">{children}</h2>
+                  ),
+                  h3: ({ children }) => (
+                    <h3 className="text-lg font-bold mt-2 mb-1">{children}</h3>
+                  ),
+                  p: ({ children }) => (
+                    <p className="mb-2">{children}</p>
+                  ),
+                  ul: ({ children }) => (
+                    <ul className="list-disc ml-6 mb-2">{children}</ul>
+                  ),
+                  ol: ({ children }) => (
+                    <ol className="list-decimal ml-6 mb-2">{children}</ol>
+                  ),
+                  li: ({ children }) => (
+                    <li className="mb-1">{children}</li>
+                  ),
+                  code: ({ inline, children }) => {
+                    if (inline) {
+                      return (
+                        <code className="bg-gray-100 px-1 py-0.5 rounded text-sm">
+                          {children}
+                        </code>
+                      )
+                    }
+                    return (
+                      <code className="block bg-gray-100 p-2 rounded my-2 overflow-x-auto text-sm">
+                        {children}
+                      </code>
+                    )
+                  },
+                  pre: ({ children }) => (
+                    <pre className="bg-gray-900 text-white p-4 rounded-lg my-2 overflow-x-auto">
+                      {children}
+                    </pre>
+                  ),
+                  blockquote: ({ children }) => (
+                    <blockquote className="border-l-4 border-gray-300 pl-4 italic my-2">
+                      {children}
+                    </blockquote>
+                  ),
+                  a: ({ href, children }) => (
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-500 hover:text-blue-700 underline"
+                    >
+                      {children}
+                    </a>
+                  ),
+                  table: ({ children }) => (
+                    <div className="overflow-x-auto my-2">
+                      <table className="min-w-full border-collapse border border-gray-300">
+                        {children}
+                      </table>
+                    </div>
+                  ),
+                  th: ({ children }) => (
+                    <th className="border border-gray-300 px-4 py-2 bg-gray-100 font-bold">
+                      {children}
+                    </th>
+                  ),
+                  td: ({ children }) => (
+                    <td className="border border-gray-300 px-4 py-2">
+                      {children}
+                    </td>
+                  ),
+                  hr: () => (
+                    <hr className="my-4 border-gray-300" />
+                  ),
+                }}
+              >
+                {processedMessage}
+              </ReactMarkdown>
             </div>
           </div>
         </>
