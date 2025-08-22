@@ -169,18 +169,14 @@ const Chat = ({
                   h3: ({ children }) => (
                     <h3 className="text-lg font-bold mt-2 mb-1">{children}</h3>
                   ),
-                  p: ({ children }) => (
-                    <p className="mb-2">{children}</p>
-                  ),
+                  p: ({ children }) => <p className="mb-2">{children}</p>,
                   ul: ({ children }) => (
                     <ul className="list-disc ml-6 mb-2">{children}</ul>
                   ),
                   ol: ({ children }) => (
                     <ol className="list-decimal ml-6 mb-2">{children}</ol>
                   ),
-                  li: ({ children }) => (
-                    <li className="mb-1">{children}</li>
-                  ),
+                  li: ({ children }) => <li className="mb-1">{children}</li>,
                   code: ({ inline, children }) => {
                     if (inline) {
                       return (
@@ -232,9 +228,7 @@ const Chat = ({
                       {children}
                     </td>
                   ),
-                  hr: () => (
-                    <hr className="my-4 border-gray-300" />
-                  ),
+                  hr: () => <hr className="my-4 border-gray-300" />,
                 }}
               >
                 {processedMessage}
