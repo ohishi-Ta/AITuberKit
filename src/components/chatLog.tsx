@@ -136,7 +136,7 @@ const Chat = ({
   const offsetX = role === 'user' ? 'pl-10' : 'pr-10'
 
   return (
-    <div className={`mx-auto ml-0 md:ml-10 lg:ml-20 my-4 ${offsetX}`}>
+    <div className={`mx-auto my-4 ${offsetX}`}>
       {role === 'code' ? (
         <pre className="whitespace-pre-wrap break-words bg-[#1F2937] text-theme p-4 rounded-lg">
           <code className="font-mono text-sm">{message}</code>
